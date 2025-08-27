@@ -1,5 +1,6 @@
 package com.heylotalk.profiles.service;
 
+import com.heylotalk.profiles.dto.CreateUserProfileRequest;
 import com.heylotalk.profiles.dto.UserProfileDto;
 import com.heylotalk.profiles.entity.ProfileImage;
 import com.heylotalk.profiles.entity.UserProfile;
@@ -25,11 +26,11 @@ public class UserProfileService {
         this.profileImageRepository = profileImageRepository;
     }
 
-    public UserProfileDto createUserProfile(UserProfileDto userProfileDto) {
+    public UserProfileDto createUserProfile(CreateUserProfileRequest request) {
         log.info("createUserProfile invoked");
         UserProfile userProfile = UserProfile.builder()
-                .name(userProfileDto.getName()).email(userProfileDto.getEmail())
-                .phoneNumber(userProfileDto.getPhoneNumber())
+                .name(request.getName()).email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
                 .build();
         UserProfile savedProfile = userProfileRepository.save(userProfile);
         return mapToUserProfileDto(savedProfile);
